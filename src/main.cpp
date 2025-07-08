@@ -1,15 +1,21 @@
 #include "raylib.h"
+#include <string>
 
-
-int main(void)
+int main()
 {
     // Initialization
     //--------------------------------------------------------------------------------------
     const int screenWidth = 1200;
     const int screenHeight = 900;
 
-    InitWindow(screenWidth, screenHeight, "My Window");
+    InitWindow(screenWidth, screenHeight, "☭ Our Window ☭");
 
+    //texture rend
+    Image sad = LoadImage("../assets/emotions/white_frowning_face_u2639_icon_24x24.png");
+    Texture2D sad_ = LoadTextureFromImage(sad);
+    UnloadImage(sad);
+
+    //cam init
     Vector3 position = (Vector3){ 0.0f, 2.0f, 0.0f };
 
     Camera camera  = { 0 };
@@ -29,10 +35,10 @@ int main(void)
     // Main game loop
     while (!WindowShouldClose())
     {
-        if(IsKeyPressed(KEY_TAB))
+        if(IsKeyPressed(KEY_TAB))   // Toggle cursor visibility
         {
-            if (IsCursorHidden()) EnableCursor();
-            else DisableCursor();
+            if (IsCursorHidden()) {EnableCursor();}
+            else {DisableCursor();}
         }
 
         if(IsCursorHidden())
@@ -60,8 +66,12 @@ int main(void)
             EndMode3D();
 
             DrawFPS(10, 10);
+            DrawText("Press TAB to toggle cursor visibility", 10, 30, 20, DARKGRAY);
+            DrawText("Use W, A, S, D, SPACE and SHIFT to move", 10, 50, 20, DARKGRAY);
+            DrawText("Use mouse to look around", 10, 70, 20, DARKGRAY);
+            DrawText("context grid", 10, 100, 20, DARKGRAY);
+            DrawTexture(sad_, 140, 98, DARKGRAY);
         EndDrawing();
-
     }
 
     CloseWindow();
